@@ -1,7 +1,7 @@
 # multipass-service-examples
 
 This demo project is a how-to sample for integrating multipass flows with Rest services.
-In this demo, we have used spring-boot to setup the web server.
+In this demo, we have used spring-boot to set up the web server.
 
 This project also, demonstrates how to use GA-SDK features as steps of the flow.
 In this project, we are going to use Addressing Geocode and Addressing Verify as steps of the Flow.
@@ -82,22 +82,39 @@ After this geocode step runs, the global JSON would look like:
 Required:
 
 1. Java 17 in local environment
+2. Maven installation
+3. Export the following variables:
+```shell
 
-Export the following variables:
-
-    MULITPASS_PATH_FLOWS=<path-to-folder-where-flow-JSONs-are-saved>
-    MULTIPASS_PATH_FILES_JAVA=<path-to-folder-where-java-files-are-saved> //in case Java operator is used
-    DATA_PATH=<path-to-geocode-verify-data> //if want to use Geocode/Verify operator
-    RESOURCE_PATH=<path-to-GA-SDK-resources> //if want to use Geocode/Verify operator
-
+export MULITPASS_PATH_FLOWS=<path-to-folder-where-flow-JSONs-are-saved> #if not set then `src/main/resources/flows` will be used to read flow JSONs by default
+export MULTIPASS_PATH_FILES_JAVA=<path-to-folder-where-java-files-are-saved> #in case Java operator is used
+export DATA_PATH=<path-to-geocode-verify-data> #if the user wants to use Geocode/Verify operator
+export RESOURCE_PATH=<path-to-GA-SDK-resources> #if the user wants to use Geocode/Verify operator
+```
 
 ## How to Run
 
-Run the main Application: MultipassApplication
+### 1. Build the JAR
+
+Set the property `${sdk.repository}` to the repository available in GA-SDK.
+This should be pointing to `{path-to-ga-sdk-build}/ga-sdk-dist-{version}/sdk/repository`.
+
+
+Variable `{path-to-ga-sdk-build}` refers to the location where the extracted build is stored.
+
+Variable `{version}` refers to the version of the GA-SDK build available.
+
+If the build is stored on path `/Users/user.name/path/sdk/` and version of the GA-SDK build is `11.1.1250` then the following command should be executed.
+
+    mvn clean install -s settings.xml -Dsdk.repository=/Users/user.name/path/sdk/ga-sdk-dist-11.1.1250/sdk/repository
+
+### 2. Execute the JAR
+
+    java -jar target/multipass-rest-api-demo-1.0-SNAPSHOT.jar
 
 Check the logs and see if it displays:
 
-    Started MultipassApplication
+    Started MultipassApplication in x.xxx seconds (process running for x.xxx)
 
 ## Execute Flows
 
@@ -135,4 +152,4 @@ This flow utilises the custom Geocode Operator. The workflow is:
 
 ### 3. preferences_enhanced_flow.json
 
-This flow is same as the enhanced_flow but it demonstrates how preferences can be filled in the JSON definition of Geocode operator.
+This flow is same as the enhanced_flow, but it demonstrates how preferences can be filled in the JSON definition of Geocode operator.
