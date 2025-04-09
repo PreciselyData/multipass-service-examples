@@ -1,0 +1,39 @@
+{
+  "operators": [
+    {
+      "id": "Minimal Flow start",
+      "description": "Java Test Flow Start",
+      "nextNode": "trim_address",
+      "type": "Start"
+    },
+    {
+      "id": "trim_address",
+      "description": "Java Test Flow Start",
+      "nextNode": "check_country",
+      "key": "data",
+      "operation": "request.city&' Bosshh'",
+      "type": "Transform"
+    },
+    {
+      "id": "check_country",
+      "description": "Java Test Flow Start",
+      "successNode": "return_updated_address",
+      "failureNode": "add_country",
+      "condition": "$exists(request.country) and request.country!=null and request.country!=''",
+      "type": "Predicate"
+    },
+    {
+      "id": "add_country",
+      "description": "Java Test Flow Start",
+      "nextNode": "return_updated_address",
+      "key": "request.country",
+      "operation": "'US'",
+      "type": "Transform"
+    },
+    {
+      "id": "return_updated_address",
+      "resultExpression": "request",
+      "type": "Return"
+    }
+  ]
+}

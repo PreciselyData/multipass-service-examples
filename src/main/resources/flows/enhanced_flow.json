@@ -1,0 +1,70 @@
+{
+  "operators": [
+    {
+      "id": "Enhanced Flow start",
+      "description": "This flow will run multi line and single line address and returns if score is > 80 else the response with better score",
+      "nextNode": "geocode",
+      "type": "Start"
+    },
+    {
+      "id": "geocode",
+      "description": "This step runs the custom operator with functionality to geocode",
+      "nextNode": "eval_multiline_geocode",
+      "inputKey": "request",
+      "outputKey": "geocode_response_multiline",
+      "type": "Geocode"
+    },
+    {
+      "id": "eval_multiline_geocode",
+      "description": "This step evaluates the output of custom operator with multiline geocode",
+      "successNode": "return_geocode_multiline_response",
+      "condition": "geocode_response_multiline.status='OK' and geocode_response_multiline.results.score > 80",
+      "failureNode": "prep_single_line_address",
+      "type": "Predicate"
+    },
+    {
+      "id": "prep_single_line_address",
+      "description": "This step runs the custom operator with functionality to geocode",
+      "nextNode": "geocode_single_line",
+      "key": "singleLineAddress",
+      "operation": "$merge([request, {'addressLines': [$join(request.addressLines, ',')]}])",
+      "type": "Transform"
+    },
+    {
+      "id": "geocode_single_line",
+      "description": "This step runs the custom operator with functionality to geocode",
+      "nextNode": "eval_single_line_geocode",
+      "inputKey": "singleLineAddress",
+      "outputKey": "geocode_response_single_line",
+      "type": "Geocode"
+    },
+    {
+      "id": "eval_single_line_geocode",
+      "description": "This step evaluates the output of custom operator with multiline geocode",
+      "successNode": "return_geocode_single_line_response",
+      "condition": "geocode_response_single_line.status='OK' and geocode_response_single_line.results.score > 80",
+      "failureNode": "eval_single_vs_multiline",
+      "type": "Predicate"
+    },
+    {
+      "id": "eval_single_vs_multiline",
+      "description": "This step evaluates the output of custom operator with multiline geocode",
+      "successNode": "return_geocode_single_line_response",
+      "condition": "geocode_response_single_line.results.score > geocode_response_multiline.results.score",
+      "failureNode": "return_geocode_multiline_response",
+      "type": "Predicate"
+    },
+    {
+      "id": "return_geocode_multiline_response",
+      "description": "This step returns the multi line geocode response data as result",
+      "resultExpression": "geocode_response_multiline",
+      "type": "Return"
+    },
+    {
+      "id": "return_geocode_single_line_response",
+      "description": "This step returns the single line geocode response data as result",
+      "resultExpression": "geocode_response_single_line",
+      "type": "Return"
+    }
+  ]
+}

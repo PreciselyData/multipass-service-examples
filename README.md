@@ -6,7 +6,7 @@ In this demo, we have used spring-boot to setup the web server.
 This project also, demonstrates how to use GA-SDK features as steps of the flow.
 In this project, we are going to use Addressing Geocode and Addressing Verify as steps of the Flow.
 
-## Custom Operators Defines
+## Defined Custom Operators
 
 In this project two custom operators are defined:
 
@@ -87,8 +87,8 @@ Export the following variables:
 
     MULITPASS_PATH_FLOWS=<path-to-folder-where-flow-JSONs-are-saved>
     MULTIPASS_PATH_FILES_JAVA=<path-to-folder-where-java-files-are-saved> //in case Java operator is used
-    DATA_PATH=<path-to-geocode-verify-data>
-    RESOURCE_PATH=<path-to-GA-SDK-resources>
+    DATA_PATH=<path-to-geocode-verify-data> //if want to use Geocode/Verify operator
+    RESOURCE_PATH=<path-to-GA-SDK-resources> //if want to use Geocode/Verify operator
 
 
 ## How to Run
