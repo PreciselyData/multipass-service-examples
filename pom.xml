@@ -13,7 +13,6 @@
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring-boot.version>3.4.4</spring-boot.version>
-        <ga-sdk.version>11.1.1250</ga-sdk.version>
         <logback.version>1.5.7</logback.version>
     </properties>
 
@@ -28,7 +27,7 @@
         <dependency>
             <groupId>com.precisely.addressing</groupId>
             <artifactId>multipass-builder</artifactId>
-            <version>${ga-sdk.version}</version>
+            <version>${sdk.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.slf4j</groupId>
@@ -39,7 +38,7 @@
         <dependency>
             <groupId>com.precisely.addressing</groupId>
             <artifactId>addressing-api</artifactId>
-            <version>${ga-sdk.version}</version>
+            <version>${sdk.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.slf4j</groupId>

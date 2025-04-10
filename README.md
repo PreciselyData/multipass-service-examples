@@ -96,17 +96,21 @@ export RESOURCE_PATH=<path-to-GA-SDK-resources> #if the user wants to use Geocod
 
 ### 1. Build the JAR
 
-Set the property `${sdk.repository}` to the repository available in GA-SDK.
-This should be pointing to `{path-to-ga-sdk-build}/ga-sdk-dist-{version}/sdk/repository`.
+To build the JAR we need the GA-SDK build extracted on the local machine, and we need to set local maven repository to the sdk repository situated in it.
 
+Set the property `${sdk.home}` to the folder in which GA-SDK is extracted.
+This should be pointing to a folder which should have`ga-sdk-dist-{version}/` folder. This folder should contain `sdk/repository`
 
-Variable `{path-to-ga-sdk-build}` refers to the location where the extracted build is stored.
+Set `${version}` to the version of the GA-SDK build available
 
-Variable `{version}` refers to the version of the GA-SDK build available.
+Example: If the build is stored on path `/Users/user.name/path/sdk/` and version of the GA-SDK build is `11.1.1250` then the following command should be executed.
 
-If the build is stored on path `/Users/user.name/path/sdk/` and version of the GA-SDK build is `11.1.1250` then the following command should be executed.
+    mvn clean install -s settings.xml -Dsdk.home=/Users/user.name/path/sdk/ -Dsdk.version=11.1.1250
 
-    mvn clean install -s settings.xml -Dsdk.repository=/Users/user.name/path/sdk/ga-sdk-dist-11.1.1250/sdk/repository
+> Note:
+> If the above setup doesn't work then locate the `repository` folder in your GA-SDK distribution
+> and provide the path to it as localRepository in your .m2/settings.xml.
+> Then run: `mvn clean install -Dsdk.version=11.1.1250` (If using GA-SDK version 11.1.1250)
 
 ### 2. Execute the JAR
 

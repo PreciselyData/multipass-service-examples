@@ -7,5 +7,5 @@
      |
      | Default: ${user.home}/.m2/repository -->
 
-    <localRepository>${sdk.repository}</localRepository>
+    <localRepository>${sdk.home}/ga-sdk-dist-${sdk.version}/sdk/repository</localRepository>
 </settings>
