@@ -83,14 +83,6 @@ Required:
 
 1. Java 17 in local environment
 2. Maven installation
-3. Export the following variables:
-```shell
-
-export MULITPASS_PATH_FLOWS=<path-to-folder-where-flow-JSONs-are-saved> #if not set then `src/main/resources/flows` will be used to read flow JSONs by default
-export MULTIPASS_PATH_FILES_JAVA=<path-to-folder-where-java-files-are-saved> #in case Java operator is used
-export DATA_PATH=<path-to-geocode-verify-data> #if the user wants to use Geocode/Verify operator
-export RESOURCE_PATH=<path-to-GA-SDK-resources> #if the user wants to use Geocode/Verify operator
-```
 
 ## How to Run
 
@@ -114,7 +106,45 @@ Example: If the build is stored on path `/Users/user.name/path/sdk/` and version
 
 ### 2. Execute the JAR
 
+#### 2a.Using docker
+
+Build docker file:
+
+    docker build . -t multipass-rest
+
+Execute Docker file:
+
+    docker run \
+    -v <path-to-folder-where-flow-JSONs-are-saved>:/flows \
+    -v <path-to-folder-where-java-files-are-saved>:/java \
+    -v <path-to-geocode-verify-data>:/data \
+    -v <path-to-GA-SDK-resources>:/resources \
+    -p 8080:8080
+    multipass-rest:latest
+
+#### 2b. Executing Jar
+
+Export the following variables:
+```shell
+
+export MULITPASS_PATH_FLOWS=<path-to-folder-where-flow-JSONs-are-saved> #if not set then `src/main/resources/flows` will be used to read flow JSONs by default
+export MULTIPASS_PATH_FILES_JAVA=<path-to-folder-where-java-files-are-saved> #in case Java operator is used
+export DATA_PATH=<path-to-geocode-verify-data> #if the user wants to use Geocode/Verify operator
+export RESOURCE_PATH=<path-to-GA-SDK-resources> #if the user wants to use Geocode/Verify operator
+```
+
+Then run
+
     java -jar target/multipass-rest-api-demo-1.0-SNAPSHOT.jar
+
+Instead of exporting the variables all the properties can be set within the execution command:
+
+    java \
+    -Dmultipass.path.flows=<path-to-folder-where-flow-JSONs-are-saved> \
+    -Dmultipass.path.files.java=<path-to-folder-where-java-files-are-saved> \
+    -Ddata.path=<path-to-geocode-verify-data> \
+    -Dresource.path=<path-to-GA-SDK-resources> \
+    -jar target/multipass-rest-api-demo-1.0-SNAPSHOT.jar
 
 Check the logs and see if it displays:
 
